@@ -106,3 +106,28 @@ docker pull grafana
 docker run -d -p 3000:3000 --name=grafana grafana/grafana
 ```
 
+#### 1.5 完整案例
+
+```yaml
+global:
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  evaluation_interval: 15s
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets: []
+    scheme: http
+    timeout: 10s
+scrape_configs:
+- job_name: "sass-prometheus"
+  honor_timestamps: true
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  metrics_path: /metrics
+  scheme: http
+  static_configs:
+  - targets:
+    - 192.168.0.199:8080   #192.168.0.199为本机ip， 本机127.0.0.1在容器中无法访问到
+```
+
